@@ -1,15 +1,15 @@
-# go-micro service template
+# go-micro service boilerplate
 
 This project aims to provide an enhanced template for go-micro services. Goal is to write code faster and not get distracted writing middleware code.
 
 ## Features
-- [ ] Include _Example_ service protobuf
-- [ ] Include _Makefile_
+- [x] Include _Example_ service protobuf
+- [x] Include _Makefile_
 - [ ] Base handler including test
 - [ ] Well structured main.go
-- [ ] Configuration using **go-config** to provide configuration from various sources
-- [ ] Pre-configured structured logging ready for parsing
-- [ ] Log wrapper
+- [x] Configuration using **go-config** to provide configuration from various sources
+- [x] Pre-configured structured logging ready for parsing
+- [x] Log wrapper
 - [ ] Prometheus metrics
 - [ ] Trace wrapper
 - [ ] Generator script
