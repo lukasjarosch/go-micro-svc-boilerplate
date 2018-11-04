@@ -1,15 +1,28 @@
 package main
 
 import (
-	"github.com/lukasjarosch/service-boilerplate/handler"
-	example "github.com/lukasjarosch/service-boilerplate/proto/example"
-	"github.com/micro/go-micro"
 	"log"
 	"time"
+
+	"github.com/micro/go-micro"
+	goConf "github.com/micro/go-config"
+
+	"github.com/lukasjarosch/service-boilerplate/proto/example"
+	"github.com/lukasjarosch/service-boilerplate/handler"
+	"github.com/lukasjarosch/service-boilerplate/config"
 )
 
 // ServiceName is the global service-name
 const ServiceName = "go.example.srv"
+
+var (
+	cfg config.ServiceConfiguration
+)
+
+// init is called on package initialization and can therefore be used to initialize global stuff like logging, config, ..
+func init() {
+	goConf.Scan(&cfg)
+}
 
 func main() {
 	service := micro.NewService(
