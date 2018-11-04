@@ -36,11 +36,11 @@ func initLogging(cfg config.LogConfiguration) *logrus.Logger {
 func logWithContext(ctx context.Context, functionName string) *logrus.Entry {
 	log := baseLogger.WithField("method", functionName)
 
-	if requestId := getValueFromMetadata(ctx, "x-request-id"); requestId != "" {
+	if requestId := getValueFromMetadata(ctx, "X-Request-Id"); requestId != "" {
 		log = log.WithField("request_id", requestId)
 	}
 
-	if traceId := getValueFromMetadata(ctx, "x-b3-trace-id"); traceId != "" {
+	if traceId := getValueFromMetadata(ctx, "X-B3-Trace-Id"); traceId != "" {
 		log = log.WithField("trace_id", traceId)
 	}
 
@@ -62,7 +62,7 @@ func getValueFromMetadata(ctx context.Context, key string) string {
 func LogWrapper(fn server.HandlerFunc) server.HandlerFunc {
 	return func(ctx context.Context, req server.Request, rsp interface{}) error {
 		l := logWithContext(ctx, req.Method())
-		l.Println(req.ContentType())
+		l.Println("incoming request")
 		return fn(ctx, req, rsp)
 	}
 }

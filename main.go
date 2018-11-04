@@ -35,16 +35,13 @@ func main() {
 	)
 	service.Init()
 
-	example.RegisterExampleHandler(service.Server(), new(handler.Example))
-
-	// attach instance to all consecutive logs by default
-	logger := baseLogger.WithField("instance", ServiceName + "." + service.Options().Server.Options().Id)
-	logger.Info("Starting service " + ServiceName)
-
 	// init database
+
+	// register service handlers
+	example.RegisterExampleHandler(service.Server(), new(handler.Example))
 
 	// fire
 	if err := service.Run(); err != nil {
-		logger.Fatal(err)
+		baseLogger.Fatal(err)
 	}
 }
