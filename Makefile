@@ -2,9 +2,11 @@ GOPATH=$(shell go env GOPATH)
 GOFILES=$(wildcard *.go)
 GOFILES=$(filter-out $(wildcard *_test.go), $(wildcard *.go))
 GONAME=$(shell basename "$(PWD)")
+COMMIT=$(shell git rev-parse --short HEAD)
 
-DOCKER_IMAGE="derwaldemar/template-srv"
-DOCKER_TAG="latest"
+
+DOCKER_IMAGE="derwaldemar/go-micro-srv-boilerplate"
+DOCKER_TAG="v-${COMMIT}"
 
 .PHONY: build get run start restart clean
 
@@ -15,19 +17,9 @@ build: clean proto
 run: proto
 	bash -c "trap 'go run $(GOFILES)' EXIT"
 
-dep:
-	@echo "[+] initializing dependency tree"
-	@GOPATH=$(GOPATH) GOBIN=$(GOBIN) dep init -v
-
-ensure:
-	@echo "[+] ensuring dependencies"
-	@GOPATH=$(GOPATH) GOBIN=$(GOBIN) dep ensure -v
-
-docker: clean ensure proto
-	@echo "[+] building static binary"
-	@GOPATH=$(GOPATH) CGO_ENABLED=0 GOOS=linux go build -o $(GONAME) -a -installsuffix cgo .
+docker: clean proto
 	@echo "[+] building docker image"
-	docker build . -t $(DOCKER_IMAGE):$(DOCKER_TAG)
+	docker build . -t ${DOCKER_IMAGE}:${DOCKER_TAG}
 
 docker-run:
 	@echo "[+] starting container $(DOCKER_IMAGE):$(DOCKER_TAG)"
