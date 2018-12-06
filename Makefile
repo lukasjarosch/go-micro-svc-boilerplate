@@ -17,7 +17,7 @@ build: clean proto
 run: proto
 	bash -c "trap 'go run $(GOFILES)' EXIT"
 
-docker: clean proto
+docker: clean proto tidy
 	@echo "[+] building docker image"
 	docker build . -t ${DOCKER_IMAGE}:${DOCKER_TAG}
 
@@ -52,3 +52,7 @@ clean:
 start:
 	@echo "Starting service binary: ./$(GONAME)"
 	@./$(GONAME)
+
+tidy:
+	@echo "[+] tidying up dependencies"
+	@GOPATH=$(GOPATH) GOBIN=$(GOBIN) go mod tidy
