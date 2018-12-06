@@ -20,3 +20,5 @@ All you need to do is to checkout this repo and start hacking. But for the sake 
 1. Adjust `DOCKER_IMAGE` and `DOCKER_TAG` in the **Makefile**
 2. Rename the `example.proto` definition
 3. Adjust the `proto` command in the *Makefile* to the new path
+
+

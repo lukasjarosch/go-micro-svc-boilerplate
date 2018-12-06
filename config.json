@@ -1,6 +1,11 @@
 {
   "log": {
     "level": "debug",
-    "format": "json"
-  }
+    "format": "text"
+  },
+  "database": {
+    "uri": "user:pass@tcp(localhost:3306)/test-database",
+    "dialect": "mysql"
+  },
+  "local_env": true
 }

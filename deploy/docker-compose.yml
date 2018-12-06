@@ -1,0 +1,40 @@
+version: "3"
+
+services:
+
+  # Consul is used as local service discovery
+  consul:
+    image: library/consul:1.2.3
+    command: agent -dev -client 0.0.0.0 -ui
+    ports:
+      - "8500:8500"
+
+  # micro api gateway
+  micro-api:
+    #image: microhq/micro:kubernetes
+    image: microhq/micro:latest
+    command:
+      - "api"
+      - "--handler=rpc"
+    environment:
+      - PORT=8080
+      #- MICRO_REGISTRY="kubernetes"
+    ports:
+    - "8080:8080"
+    depends_on:
+      - consul
+
+  application-mysql:
+    image: library/mysql:5.7
+    entrypoint: ['/entrypoint.sh', '--character-set-server=utf8', '--collation-server=utf8_general_ci']
+    user: mysql
+    environment:
+      - MYSQL_DATABASE=test-database
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=pass
+      - MYSQL_ROOT_PASSWORD=pass@456
+      - TZ=Europe/Zurich
+    ports:
+      - "3306:3306"
+
+

@@ -5,9 +5,8 @@ service Example {
 }
 
 message HelloRequest {
-
 }
 
 message HelloResponse {
-
+    string status = 1;
 }

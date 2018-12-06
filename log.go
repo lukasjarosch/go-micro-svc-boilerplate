@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/lukasjarosch/service-boilerplate/config"
+	"github.com/lukasjarosch/go-micro-svc-boilerplate/config"
 	"github.com/micro/go-micro/metadata"
 	"github.com/micro/go-micro/server"
 	"github.com/sirupsen/logrus"

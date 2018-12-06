@@ -6,6 +6,7 @@ require (
 	github.com/fsnotify/fsnotify v1.4.7 // indirect
 	github.com/ghodss/yaml v1.0.0 // indirect
 	github.com/go-log/log v0.1.0 // indirect
+	github.com/go-sql-driver/mysql v1.4.1 // indirect
 	github.com/golang/protobuf v1.2.0
 	github.com/hashicorp/consul v1.3.0 // indirect
 	github.com/hashicorp/go-cleanhttp v0.5.0 // indirect
@@ -13,6 +14,8 @@ require (
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/hashicorp/serf v0.8.1 // indirect
 	github.com/imdario/mergo v0.3.6 // indirect
+	github.com/jinzhu/gorm v1.9.2
+	github.com/jinzhu/inflection v0.0.0-20180308033659-04140366298a // indirect
 	github.com/json-iterator/go v1.1.5 // indirect
 	github.com/micro/cli v0.0.0-20180830071301-8b9d33ec2f19 // indirect
 	github.com/micro/go-config v0.9.0
@@ -34,8 +37,10 @@ require (
 	github.com/nu7hatch/gouuid v0.0.0-20131221200532-179d4d0c4d8d // indirect
 	github.com/pborman/uuid v1.2.0 // indirect
 	github.com/pkg/errors v0.8.0 // indirect
+	github.com/rs/xid v1.2.1
 	github.com/sirupsen/logrus v1.2.0
 	github.com/streadway/amqp v0.0.0-20181107104731-27835f1a64e9 // indirect
 	golang.org/x/net v0.0.0-20181108082009-03003ca0c849 // indirect
+	golang.org/x/vgo v0.0.0-20180912184537-9d567625acf4 // indirect
 	gopkg.in/yaml.v2 v2.2.1 // indirect
 )

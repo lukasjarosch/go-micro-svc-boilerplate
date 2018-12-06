@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: example
+  labels:
+    app: example
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: example
+  template:
+    metadata:
+      labels:
+        app: example
+    spec:
+      containers:
+      - name: example
+        image: derwaldemar/go-micro-srv-boilerplate:v-0.0.0
+        imagePullPolicy: Always
+        command: [
+          "/service",
+          "--server_address=:8080",
+          "--server_name=example",
+        ]
+        ports:
+          - containerPort: 8080
+            name: example-port
+
