@@ -18,10 +18,6 @@ import (
 // ServiceName is the global service-name
 const ServiceName = "go.micro.srv.example"
 
-// go.micro.api.*
-// go.micro.srv.*
-// go.micro.web.*
-
 var (
 	cfg        config.ServiceConfiguration
 	baseLogger *logrus.Logger
