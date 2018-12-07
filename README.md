@@ -34,3 +34,10 @@ It's just as easy to build a docker image, just use `make docker` and `make dock
 ## Deployment
 The boilerplate ships with configured `deploy/k8s/deployment.yaml` and `deploy/k8s/service.yaml` which you can use to deploy the service into your Kubernetes cluster.
 
+
+## Configuration
+The boilerplate is preconfigured using **go-config**. It has two sources attached: *file* and *env* (in that order).
+This means that you can always overwrite configuration defaults provided by the config.json by setting environment variables accordingly.
+
+For example: It might be a good idea to change the log-format when deploying to your cluster.  The current default is **text** which is meant for development.
+To change it to JSON logs, either change the config file or just overwrite it by setting `LOG_FORMAT=json`.
