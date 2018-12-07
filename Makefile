@@ -37,9 +37,17 @@ docker-stop:
 	@echo "[+] stopping container $(DOCKER_IMAGE):$(DOCKER_TAG)"
 	@docker stop $(GONAME) > /dev/null
 
+start-local:
+	@echo "[+] starting local development services"
+	docker-compose -f deploy/docker-compose.dev.yml up -d
+
+stop-local:
+	@echo "[+] stopping local development services"
+	docker-compose -f deploy/docker-compose.dev.yml down
+
 proto:
 	@echo "[+] compiling protobuf"
-	protoc --proto_path=${GOPATH}/src:. --micro_out=. --go_out=. proto/example/example.proto
+	protoc --proto_path=${GOPATH}/src:. --micro_out=. --go_out=. proto/example/*.proto
 
 test:
 	go test -timeout 30s -v -cover
