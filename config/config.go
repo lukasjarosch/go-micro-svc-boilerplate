@@ -22,7 +22,7 @@ func Init() {
 		env.NewSource(),
 	); err != nil {
 		if strings.Contains(err.Error(), "no such file") {
-			log.Print("missing config.json")
+			log.Print("missing config.json, use environment variables")
 		} else {
 			log.Fatal(err.Error())
 		}

@@ -1,29 +1,50 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: example
+  name: example-srv
   labels:
-    app: example
+    app: example-srv
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: example
+      app: example-srv
   template:
     metadata:
       labels:
-        app: example
+        app: example-srv
     spec:
       containers:
-      - name: example
-        image: derwaldemar/go-micro-srv-boilerplate:v-0.0.0
+      - name: example-srv
+        image: derwaldemar/go-micro-srv-boilerplate:v-f93e455
         imagePullPolicy: Always
         command: [
           "/service",
           "--server_address=:8080",
           "--server_name=example",
         ]
+        env:
+          - name: DATABASE_URI
+            value: "user:pass@tcp(application-mysql.micro.svc.cluster.local:3306)/test-database"
+          - name: ENVIRONMENT
+            value: "k8s"
+          - name: LOG_FORMAT
+            value: "json"
         ports:
           - containerPort: 8080
             name: example-port
+      - name: health
+        command: [
+          "/health",
+          "--health_address=0.0.0.0:8081",
+          "--server_name=greeter",
+          "--server_address=0.0.0.0:8080"
+        ]
+        image: microhq/health:kubernetes
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8081
+          initialDelaySeconds: 3
+          periodSeconds: 3
 

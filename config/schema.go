@@ -3,7 +3,7 @@ package config
 // ServiceConfiguration is the top level configuration struct which is loaded from the defined source(s)
 type ServiceConfiguration struct {
 	Log LogConfiguration
-	LocalEnv bool `json:"local_env"`
+	Environment string `json:"environment"`
 	Database DatabaseConfiguration
 }
 

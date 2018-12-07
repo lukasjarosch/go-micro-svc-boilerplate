@@ -17,17 +17,19 @@ build: clean proto
 run: proto
 	bash -c "trap 'go run $(GOFILES)' EXIT"
 
-docker: clean proto tidy
+docker: clean proto
 	@echo "[+] building docker image"
 	docker build . -t ${DOCKER_IMAGE}:${DOCKER_TAG}
 
 docker-run:
 	@echo "[+] starting container $(DOCKER_IMAGE):$(DOCKER_TAG)"
-	docker run -d \
+	docker run  \
 			--rm \
 			--name $(GONAME) \
 			--mount type=bind,source=${CURDIR}/config.json,target=/config.json \
 			-e MICRO_REGISTRY_ADDRESS=localhost:8500 \
+			-e DATABASE_URI="user:pass@tcp(localhost:3306)/test-database" \
+			-e ENVIRONMENT=local \
 			--network host \
 			$(DOCKER_IMAGE):$(DOCKER_TAG)
 

@@ -18,6 +18,10 @@ import (
 // ServiceName is the global service-name
 const ServiceName = "go.micro.srv.example"
 
+// go.micro.api.*
+// go.micro.srv.*
+// go.micro.web.*
+
 var (
 	cfg        config.ServiceConfiguration
 	baseLogger *logrus.Logger
@@ -34,11 +38,11 @@ func main() {
 	var service micro.Service
 
 	// init service based on environment
-	// If LocalEnv is set, use micro, else use kubernetes-native services
-	if cfg.LocalEnv {
-		service = micro.NewService()
-	} else {
+	// If environment is set to "k8s", use kubernetes, else use the local environment
+	if cfg.Environment == "k8s" {
 		service = k8s.NewService()
+	} else {
+		service = micro.NewService()
 	}
 
 	// setup service

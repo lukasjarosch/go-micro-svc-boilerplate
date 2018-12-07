@@ -1,11 +1,18 @@
 FROM golang:1.11 as builder
 
-WORKDIR /go-modules
+ENV GO111MODULE=on
+WORKDIR /build
+
+# warm up dependency cache
+COPY go.mod .
+COPY go.sum .
+RUN go mod download
+
+# build binary
 COPY . .
-# Building using -mod=vendor, which will utilize the vendor directory
-RUN CGO_ENABLED=0 GOOS=linux go build -mod=vendor -o service
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build  -o /build/service
 
 FROM alpine:3.8
-
-COPY --from=builder /go-modules/service .
+COPY --from=builder /build/service /service
+COPY config.json .
 ENTRYPOINT ["/service"]
