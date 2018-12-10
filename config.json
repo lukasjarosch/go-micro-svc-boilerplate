@@ -7,5 +7,5 @@
     "uri": "user:pass@tcp(localhost:3306)/test-database",
     "dialect": "mysql"
   },
-  "environment": "k8s"
+  "environment": "local"
 }
