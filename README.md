@@ -6,6 +6,8 @@ Goal for this project is to create a good starting-point for new microservices -
 Currently the project is under heavy development and may change at any time.
 Feel free to contribute.
 
+If you do not need to use RPCs, I will also provide a boilerplate project for **go-web**
+
 ## Getting started
 All you need to do is to checkout this repo and start hacking. But for the sake of simplicity let's just walk through all steps required to customize the template.
 

@@ -8,11 +8,11 @@ import (
 	"github.com/sirupsen/logrus"
 	k8s "github.com/micro/kubernetes/go/micro"
 
-	"github.com/lukasjarosch/go-micro-svc-boilerplate/config"
 	"github.com/lukasjarosch/go-micro-svc-boilerplate/handler"
 	"github.com/lukasjarosch/go-micro-svc-boilerplate/proto/example"
 	"github.com/lukasjarosch/go-micro-svc-boilerplate/datastore"
 	_ "github.com/lukasjarosch/go-micro-svc-boilerplate/datastore"
+	"github.com/lukasjarosch/go-micro-svc-boilerplate/config"
 )
 
 // ServiceName is the global service-name
