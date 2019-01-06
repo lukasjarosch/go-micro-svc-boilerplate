@@ -20,7 +20,7 @@ type Prometheus struct {
 }
 
 func NewPrometheus(log *logrus.Logger, endpoint string, port int) *Prometheus {
-	// TODO: ensure a '/' prefix
+	// TODO: ensure slash prefix
 	if endpoint == "" {
 		endpoint = "/metrics"
 	}
