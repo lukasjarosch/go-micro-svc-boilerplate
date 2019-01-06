@@ -13,6 +13,8 @@ import (
 	"github.com/lukasjarosch/go-micro-svc-boilerplate/datastore"
 	_ "github.com/lukasjarosch/go-micro-svc-boilerplate/datastore"
 	"github.com/lukasjarosch/go-micro-svc-boilerplate/config"
+	"github.com/lukasjarosch/go-micro-svc-boilerplate/subscribe"
+	"context"
 )
 
 // ServiceName is the global service-name
@@ -49,25 +51,56 @@ func main() {
 		micro.WrapHandler(LogWrapper),
 	)
 
-	// init database
+	// setup database connection
+	initDatabase()
+	defer datastore.Close()
+
+	// register example subscriber on topic "topic.example"
+	err := micro.RegisterSubscriber(subscribe.ExampleTopic, service.Server(), new(subscribe.ExampleSubscriber))
+	if err != nil {
+	    baseLogger.WithError(err).Warn("failed to register subscriber")
+	}
+	baseLogger.WithField("topic", subscribe.ExampleTopic).Info("subscribed to topic")
+
+	// register example service handler
+	userHandler := handler.NewExampleHandler(baseLogger)
+	example.RegisterExampleHandler(service.Server(), userHandler)
+
+	// uncomment to generate some events on the topic 'topic.example'
+	// go pubExample(service, 1000)
+
+	// fire
+	if err := service.Run(); err != nil {
+		baseLogger.Fatal(err)
+	}
+
+
+}
+
+// pubExample is a simple publisher example to periodically publish the ExampleEvent
+// Usually the publisher can be attached to the service handler struct to easily pub the events from within the
+// business logic
+func pubExample(service micro.Service, intervalMs int)  {
+	timerChan := time.Tick(time.Duration(intervalMs) * time.Millisecond)
+	for range timerChan {
+
+		// example publisher
+		publisher := micro.NewPublisher(subscribe.ExampleTopic, service.Client())
+		err := publisher.Publish(context.Background(), &example.ExampleEvent{Status:"pubbed"})
+		if err != nil {
+			baseLogger.WithError(err).Warn("failed to publish event")
+		}
+		baseLogger.Infof("pubbed to: %s", subscribe.ExampleTopic)
+	}
+}
+
+// initDatabase ensures that the URI is set, initializes the datastore and defers the close of the connection
+func initDatabase() {
 	if len(cfg.Database.Uri) == 0 {
 		baseLogger.Fatal("no database connection string provided")
 	}
 	if err := datastore.Init(cfg.Database); err != nil {
 		baseLogger.Fatal(err)
 	}
-	baseLogger.Info("database initialized")
-	defer datastore.Close()
-
-
-	// create handlers
-	userHandler := handler.InitHelloHandler(baseLogger)
-
-	// register service handlers
-	example.RegisterExampleHandler(service.Server(), userHandler)
-
-	// fire
-	if err := service.Run(); err != nil {
-		baseLogger.Fatal(err)
-	}
+	baseLogger.Info("database connection initialized")
 }
