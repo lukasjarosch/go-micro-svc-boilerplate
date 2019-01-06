@@ -6,13 +6,14 @@ import (
 
 	"github.com/lukasjarosch/go-micro-svc-boilerplate/datastore"
 	ex "github.com/lukasjarosch/go-micro-svc-boilerplate/proto/example"
+	"fmt"
 )
 
 type Example struct {
 	log *logrus.Logger
 }
 
-func InitHelloHandler(log *logrus.Logger) *Example {
+func NewExampleHandler(log *logrus.Logger) *Example {
 	return &Example{log: log}
 }
 
@@ -30,6 +31,8 @@ func (e *Example) Hello(ctx context.Context, req *ex.HelloRequest, rsp *ex.Hello
 	}
 
 	e.log.WithField("user_id", user.ID).Info("created new user")
+
+	rsp.Status = fmt.Sprintf("created user %s", user.ID)
 
 	return nil
 }

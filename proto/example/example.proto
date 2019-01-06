@@ -10,3 +10,7 @@ message HelloRequest {
 message HelloResponse {
     string status = 1;
 }
+
+message ExampleEvent {
+    string status = 1;
+}
