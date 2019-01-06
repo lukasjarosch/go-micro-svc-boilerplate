@@ -31,7 +31,7 @@ var (
 func init() {
 	goConf.Scan(&cfg)
 	baseLogger = initLogging(cfg.Log)
-	metrics = metric.NewPrometheus(baseLogger, "/metrics", 8080)
+	metrics = metric.NewPrometheus(baseLogger, cfg.Metrics.Endpoint, cfg.Metrics.Port)
 }
 
 func main() {

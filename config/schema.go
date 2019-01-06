@@ -2,9 +2,10 @@ package config
 
 // ServiceConfiguration is the top level configuration struct which is loaded from the defined source(s)
 type ServiceConfiguration struct {
-	Log LogConfiguration
+	Log LogConfiguration `json:"log"`
 	Environment string `json:"environment"`
-	Database DatabaseConfiguration
+	Database DatabaseConfiguration `json:"database"`
+	Metrics MetricsConfiguration `json:"metrics"`
 }
 
 type LogConfiguration struct {
@@ -15,4 +16,9 @@ type LogConfiguration struct {
 type DatabaseConfiguration struct {
 	Uri string `json:"uri"`
 	Dialect string `json:"dialect"`
+}
+
+type MetricsConfiguration struct {
+	Endpoint string `json:"endpoint"`
+	Port int `json:"port"`
 }

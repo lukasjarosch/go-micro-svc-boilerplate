@@ -7,5 +7,9 @@
     "uri": "user:pass@tcp(localhost:3306)/test-database",
     "dialect": "mysql"
   },
-  "environment": "local"
+  "environment": "local",
+  "metrics": {
+    "endpoint": "/metrics",
+    "port": "8080"
+  }
 }
