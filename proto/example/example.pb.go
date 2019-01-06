@@ -28,7 +28,7 @@ func (m *HelloRequest) Reset()         { *m = HelloRequest{} }
 func (m *HelloRequest) String() string { return proto.CompactTextString(m) }
 func (*HelloRequest) ProtoMessage()    {}
 func (*HelloRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_example_52e687f344a8c460, []int{0}
+	return fileDescriptor_example_bea9d97742c11a5b, []int{0}
 }
 func (m *HelloRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_HelloRequest.Unmarshal(m, b)
@@ -59,7 +59,7 @@ func (m *HelloResponse) Reset()         { *m = HelloResponse{} }
 func (m *HelloResponse) String() string { return proto.CompactTextString(m) }
 func (*HelloResponse) ProtoMessage()    {}
 func (*HelloResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_example_52e687f344a8c460, []int{1}
+	return fileDescriptor_example_bea9d97742c11a5b, []int{1}
 }
 func (m *HelloResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_HelloResponse.Unmarshal(m, b)
@@ -86,23 +86,63 @@ func (m *HelloResponse) GetStatus() string {
 	return ""
 }
 
+type ExampleEvent struct {
+	Status               string   `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ExampleEvent) Reset()         { *m = ExampleEvent{} }
+func (m *ExampleEvent) String() string { return proto.CompactTextString(m) }
+func (*ExampleEvent) ProtoMessage()    {}
+func (*ExampleEvent) Descriptor() ([]byte, []int) {
+	return fileDescriptor_example_bea9d97742c11a5b, []int{2}
+}
+func (m *ExampleEvent) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ExampleEvent.Unmarshal(m, b)
+}
+func (m *ExampleEvent) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ExampleEvent.Marshal(b, m, deterministic)
+}
+func (dst *ExampleEvent) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ExampleEvent.Merge(dst, src)
+}
+func (m *ExampleEvent) XXX_Size() int {
+	return xxx_messageInfo_ExampleEvent.Size(m)
+}
+func (m *ExampleEvent) XXX_DiscardUnknown() {
+	xxx_messageInfo_ExampleEvent.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ExampleEvent proto.InternalMessageInfo
+
+func (m *ExampleEvent) GetStatus() string {
+	if m != nil {
+		return m.Status
+	}
+	return ""
+}
+
 func init() {
 	proto.RegisterType((*HelloRequest)(nil), "HelloRequest")
 	proto.RegisterType((*HelloResponse)(nil), "HelloResponse")
+	proto.RegisterType((*ExampleEvent)(nil), "ExampleEvent")
 }
 
 func init() {
-	proto.RegisterFile("proto/example/example.proto", fileDescriptor_example_52e687f344a8c460)
+	proto.RegisterFile("proto/example/example.proto", fileDescriptor_example_bea9d97742c11a5b)
 }
 
-var fileDescriptor_example_52e687f344a8c460 = []byte{
-	// 121 bytes of a gzipped FileDescriptorProto
+var fileDescriptor_example_bea9d97742c11a5b = []byte{
+	// 134 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x92, 0x2e, 0x28, 0xca, 0x2f,
 	0xc9, 0xd7, 0x4f, 0xad, 0x48, 0xcc, 0x2d, 0xc8, 0x49, 0x85, 0xd1, 0x7a, 0x60, 0x51, 0x25, 0x3e,
 	0x2e, 0x1e, 0x8f, 0xd4, 0x9c, 0x9c, 0xfc, 0xa0, 0xd4, 0xc2, 0xd2, 0xd4, 0xe2, 0x12, 0x25, 0x75,
 	0x2e, 0x5e, 0x28, 0xbf, 0xb8, 0x20, 0x3f, 0xaf, 0x38, 0x55, 0x48, 0x8c, 0x8b, 0xad, 0xb8, 0x24,
-	0xb1, 0xa4, 0xb4, 0x58, 0x82, 0x51, 0x81, 0x51, 0x83, 0x33, 0x08, 0xca, 0x33, 0x32, 0xe6, 0x62,
-	0x77, 0x85, 0x98, 0x24, 0xa4, 0xc1, 0xc5, 0x0a, 0xd6, 0x23, 0xc4, 0xab, 0x87, 0x6c, 0x96, 0x14,
-	0x9f, 0x1e, 0x8a, 0x51, 0x4a, 0x0c, 0x49, 0x6c, 0x60, 0x4b, 0x8d, 0x01, 0x01, 0x00, 0x00, 0xff,
-	0xff, 0xc5, 0xc8, 0x9d, 0x64, 0x93, 0x00, 0x00, 0x00,
+	0xb1, 0xa4, 0xb4, 0x58, 0x82, 0x51, 0x81, 0x51, 0x83, 0x33, 0x08, 0xca, 0x53, 0x52, 0xe3, 0xe2,
+	0x71, 0x85, 0x98, 0xe4, 0x5a, 0x96, 0x9a, 0x57, 0x82, 0x4b, 0x9d, 0x91, 0x31, 0x17, 0x3b, 0x54,
+	0x9d, 0x90, 0x06, 0x17, 0x2b, 0xd8, 0x6c, 0x21, 0x5e, 0x3d, 0x64, 0x3b, 0xa5, 0xf8, 0xf4, 0x50,
+	0xac, 0x54, 0x62, 0x48, 0x62, 0x03, 0x3b, 0xce, 0x18, 0x10, 0x00, 0x00, 0xff, 0xff, 0x0b, 0xea,
+	0xad, 0x4e, 0xbb, 0x00, 0x00, 0x00,
 }
