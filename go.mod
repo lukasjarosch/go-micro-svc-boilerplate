@@ -48,6 +48,7 @@ require (
 	github.com/modern-go/reflect2 v1.0.1 // indirect
 	github.com/nu7hatch/gouuid v0.0.0-20131221200532-179d4d0c4d8d // indirect
 	github.com/pkg/errors v0.8.0
+	github.com/prometheus/client_golang v0.9.2
 	github.com/rs/xid v1.2.1
 	github.com/sean-/seed v0.0.0-20170313163322-e2103e2c3529 // indirect
 	github.com/sirupsen/logrus v1.2.0
@@ -56,7 +57,6 @@ require (
 	golang.org/x/lint v0.0.0-20181212231659-93c0bb5c8393 // indirect
 	golang.org/x/net v0.0.0-20181213202711-891ebc4b82d6 // indirect
 	golang.org/x/oauth2 v0.0.0-20181203162652-d668ce993890 // indirect
-	golang.org/x/sync v0.0.0-20181108010431-42b317875d0f // indirect
 	golang.org/x/sys v0.0.0-20181213200352-4d1cda033e06 // indirect
 	golang.org/x/tools v0.0.0-20181213210126-fe2443f7b950 // indirect
 	google.golang.org/appengine v1.3.0 // indirect

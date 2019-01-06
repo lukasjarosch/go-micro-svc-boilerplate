@@ -14,6 +14,7 @@ import (
 	_ "github.com/lukasjarosch/go-micro-svc-boilerplate/datastore"
 	"github.com/lukasjarosch/go-micro-svc-boilerplate/config"
 	"github.com/lukasjarosch/go-micro-svc-boilerplate/subscribe"
+	metric "github.com/lukasjarosch/go-micro-svc-boilerplate/metrics"
 	"context"
 )
 
@@ -23,12 +24,14 @@ const ServiceName = "go.micro.srv.example"
 var (
 	cfg        config.ServiceConfiguration
 	baseLogger *logrus.Logger
+	metrics metric.Metrics
 )
 
 // init is called on package initialization and can therefore be used to initialize global stuff like logging, config, ..
 func init() {
 	goConf.Scan(&cfg)
 	baseLogger = initLogging(cfg.Log)
+	metrics = metric.NewPrometheus(baseLogger, "/metrics", 8080)
 }
 
 func main() {
@@ -56,6 +59,12 @@ func main() {
 	initDatabase()
 	defer datastore.Close()
 
+	// metrics
+	if err := metrics.Register(); err != nil {
+		baseLogger.WithError(err).Warn("failed to register metrics")
+	}
+	go metrics.Serve()
+
 	// register example subscriber on topic "topic.example"
 	err := micro.RegisterSubscriber(subscribe.ExampleTopic, service.Server(), new(subscribe.ExampleSubscriber))
 	if err != nil {
@@ -68,7 +77,7 @@ func main() {
 	example.RegisterExampleHandler(service.Server(), userHandler)
 
 	// uncomment to generate some events on the topic 'topic.example'
-	go pubExample(service, 1000)
+	//go pubExample(service, 1000)
 
 	// fire
 	if err := service.Run(); err != nil {
