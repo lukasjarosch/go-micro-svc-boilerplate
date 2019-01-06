@@ -58,12 +58,20 @@ func getValueFromMetadata(ctx context.Context, key string) string {
 	return ""
 }
 
-// LogWrapper is the handler wrapper
-func LogWrapper(fn server.HandlerFunc) server.HandlerFunc {
+// HandleWrapper is the handler wrapper
+func HandleWrapper(fn server.HandlerFunc) server.HandlerFunc {
 	return func(ctx context.Context, req server.Request, rsp interface{}) error {
 		l := logWithContext(ctx, req.Method())
 		l.Println("incoming request")
 		return fn(ctx, req, rsp)
+	}
+}
+
+func SubscribeWrapper(fn server.SubscriberFunc) server.SubscriberFunc {
+	return func(ctx context.Context, msg server.Message) error {
+		l := baseLogger.WithField("topic", msg.Topic())
+		l.Infof("received event from topic %s", msg.Topic())
+		return fn(ctx, msg)
 	}
 }
 

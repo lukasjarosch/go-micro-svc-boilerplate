@@ -11,6 +11,6 @@ type ExampleSubscriber struct {}
 const ExampleTopic = "topic.example"
 
 func (s *ExampleSubscriber) Handle(ctx context.Context, event *example.ExampleEvent) error {
-	logrus.WithField("status", event.Status).Infof("received event from topic %s", ExampleTopic)
+	logrus.Info("handling event")
 	return nil
 }

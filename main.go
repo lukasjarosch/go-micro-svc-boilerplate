@@ -48,7 +48,8 @@ func main() {
 		micro.Name(ServiceName),
 		micro.RegisterTTL(time.Second*60),
 		micro.RegisterInterval(time.Second*15),
-		micro.WrapHandler(LogWrapper),
+		micro.WrapHandler(HandleWrapper),
+		micro.WrapSubscriber(SubscribeWrapper),
 	)
 
 	// setup database connection
@@ -67,7 +68,7 @@ func main() {
 	example.RegisterExampleHandler(service.Server(), userHandler)
 
 	// uncomment to generate some events on the topic 'topic.example'
-	// go pubExample(service, 1000)
+	go pubExample(service, 1000)
 
 	// fire
 	if err := service.Run(); err != nil {
