@@ -8,7 +8,7 @@ COMMIT=$(shell git rev-parse --short HEAD)
 DOCKER_IMAGE="derwaldemar/go-micro-srv-boilerplate"
 DOCKER_TAG="v-${COMMIT}"
 
-.PHONY: build get run start restart clean
+.PHONY: build get run start restart clean proto
 
 build: clean proto
 	@GOPATH=$(GOPATH) go build -o ${GONAME} ${GOFILES}
